@@ -1,0 +1,71 @@
+.region_north{
+	height:38px; 
+	padding: 3px;
+	background-color: #ddd;
+}
+.region_west{
+	width:150px;
+	padding: 3px;
+	background-color: #eee;
+}
+.form_filtro input{
+	margin-bottom: 3px;
+}
+.dialog_form{
+	background-color: #ddd;
+	padding: 3px;
+}
+.dialog_form .easyui-fluid{
+	margin-bottom:  3px;
+}
+.dialog_buttons{
+	background-color: #ccc;
+	padding: 3px;
+	text-align: right;
+}
+
+.textbox-label {
+    height: 15px; 
+    line-height: 15px; 
+    font-size: 10px;
+
+}
+fieldset{
+	border-radius: 5px;
+}
+
+.input_verde_claro input{
+	background-color: #E8FFE8;
+}
+.input_azul_claro input{
+	background-color: #E8F0FF;
+}
+.input_vermelho_claro input{
+	background-color: #FFE8E8;
+}
+.input_negrito input{
+	font-weight: bold;
+}
+.desktop-app-name{
+	font-size: 12px!important;
+	text-shadow: 0.1em 0.1em 0.10em #000!important;
+}
+.datagrid-row-over{
+	background-color: #eee!important;
+	color: #666;
+	font-weight: bold;
+}
+.datagrid-row{
+	background-color: #fff;
+}
+.datagrid-row-selected{
+	background-color: #ddd!important;
+	font-weight: bold;
+	color: #444;
+}
+.datagrid-body{
+	background-color: #eee;
+}
+.desktop-timer{
+	text-shadow: 0.1em 0.1em 0.10em #000!important;
+}

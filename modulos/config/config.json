@@ -1,0 +1,10 @@
+{"name":"Config",
+		"id":"config",
+		"icon":"src/icons_new/account_functions.png",
+		"iconCls":"account_functions_32",
+		"tabela":"config",
+		"width":"400",
+		"height":"247",
+		"href":"modulos/config/index.html",
+		"form":"modulos/config/form.html"
+	}

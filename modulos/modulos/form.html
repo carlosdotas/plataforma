@@ -1,0 +1,71 @@
+<meta title=" CRIAR MODULO" iconCls="car_add_32" width="600" >
+<form id="form_veiculos" action="modulos/modulos/server.php?op=create_modulo"  method="post">
+<div class="easyui-tabs" border=0>
+    <div title="Configurações" class="dialog_form" style="padding:5px"  >
+
+        <input class="easyui-textbox input_id" required label="Id" name="id" >
+        <input class="easyui-textbox input_nome" required label="Nome" name="name" >
+        <input class="easyui-textbox input_href" required label="Href" name="href" >
+        <input class="easyui-textbox input_form" required label="Formulário" name="form" >
+        <input class="easyui-textbox input_icon" buttonText="Select" required label="Icon" name="icon" value="src/icons_new/application.png" >
+        <input class="easyui-textbox input_iconCls" buttonText="Select" required label="IconCls" name="iconCls" value="application_32" >
+        <input class="easyui-textbox input_tabela" required label="Tabela" name="tabela" >
+        <input class="easyui-textbox" required label="Width" name="width" value="80%" >
+        <input class="easyui-textbox" required label="Height" name="height" value="80%" >
+        
+    </div> 
+</div>
+</form>  
+<script language="Javascript" type="text/javascript">
+    $('.input_id').textbox({
+        onChange:function(){
+            var input_id = $('.input_id').textbox('getValue');
+            $('.input_href').textbox('setValue','modulos/'+input_id+'/index.html')
+            $('.input_form').textbox('setValue','modulos/'+input_id+'/form.html')
+            $('.input_tabela').textbox('setValue',input_id)
+            $('.input_nome').textbox('setValue',input_id[0].toUpperCase() + input_id.substr(1))                     
+        }
+    })
+
+    $('.input_icon').textbox({
+        onClickButton:function(){
+
+            $('').dialogForm({
+                href:"modulos/icons/form.html",
+                post:false,
+                onSend:function(dados){
+                   $('.input_icon').textbox('setValue','src/icons_new/'+dados[2].value);
+                }         
+            });     
+         
+        }
+    })
+
+    $('.input_iconCls').textbox({
+        onClickButton:function(){
+            $('').dialogForm({
+                href:"modulos/icons/form.html",
+                post:false,
+                onSend:function(dados){
+                   $('.input_iconCls').textbox('setValue',dados[1].value);
+                }         
+            });     
+        }
+    })
+
+
+    // initialisation
+    /*
+    editAreaLoader.init({
+        id: "example_1" // id of the textarea to transform      
+        ,start_highlight: true  // if start with highlight
+        ,allow_resize: "both"
+        ,allow_toggle: true
+        ,word_wrap: true
+        ,language: "en"
+        ,syntax: "html" 
+        ,toolbar: "search, go_to_line, |, undo, redo, |, select_font, |, syntax_selection, |, change_smooth_selection, highlight, reset_highlight, |, help"
+        ,syntax_selection_allow: "css,html,js,php,python,vb,xml,c,cpp,sql,basic,pas,brainfuck"
+    });
+    */
+</script>

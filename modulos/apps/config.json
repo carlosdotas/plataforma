@@ -1,0 +1,10 @@
+{"name":"Apps",
+		"id":"apps",
+		"icon":"src/icons_new/android_phone_protect.png",
+		"iconCls":"android_phone_protect_32",
+		"tabela":"apps",
+		"width":"80%",
+		"height":"80%",
+		"href":"modulos/apps/index.html",
+		"form":"modulos/apps/form.html"
+	}

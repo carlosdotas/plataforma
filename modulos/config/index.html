@@ -1,0 +1,15 @@
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'center'"  border=0 >
+		<table id="datagrid_config" border="0"></table>
+	</div>
+</div>
+<script type="text/javascript">
+$("#datagrid_config").datagridMysql({
+	    table:"config",
+	    url:`${urlSever}?json=config`,
+	    form:"modulos/config/form.html",
+	    columns:[[
+	        {field:'name',title:'Nome'},
+	    ]]
+	})
+</script>

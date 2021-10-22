@@ -1,0 +1,10 @@
+{"name":"Icons",
+		"id":"icons",
+		"icon":"src/icons_new/application_osx.png",
+		"iconCls":"application_osx_32",
+		"tabela":"icons",
+		"width":"80%",
+		"height":"80%",
+		"href":"modulos/icons/index.html",
+		"form":"modulos/icons/form.html"
+	}

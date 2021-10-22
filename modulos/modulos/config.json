@@ -1,0 +1,10 @@
+{
+   "name":"Modulos",
+   "icon":"src\/icons_new\/module.png",
+   "iconCls":"module_32",
+   "id":"modulos",
+   "status":"true",
+   "width":"95%",
+   "height":"95%",
+   "href":"modulos\/modulos\/index.html"
+}

@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">	
+	<title>Dotas Sistemas</title>
+
+	<link rel="stylesheet" type="text/css" href="src/easyui/themes/bootstrap/easyui.css">
+	<link rel="stylesheet" type="text/css" href="src/easyui/themes/icon.css">
+	<link rel="stylesheet" type="text/css" href="src/style.css">
+	<link rel="stylesheet" type="text/css" href="src/icons_new/icons.css">
+	<link rel="stylesheet" type="text/css" href="src/desktop.css">
+	
+	<script type="text/javascript" src="src/jquery.min.js"></script>
+	<script type="text/javascript" src="src/easyui/jquery.easyui.min.js"></script>
+	<script type="text/javascript" src="src/jquery.desktop.js"></script>
+	<script type="text/javascript" src="src/datagrid-filter.js"></script>
+	<script type="text/javascript" src="src/easyui.dialogform.js"></script>	
+	<script type="text/javascript" src="src/easyui.datagridmysql.js"></script>
+	<script type="text/javascript" src="src/jquery.pivotgrid.js"></script>
+	<script type="text/javascript" src="src/datagrid-export.js"></script>
+	<script type="text/javascript" src="src/easyui/locale/easyui-lang-pt_BR.js"></script>
+	<script type="text/javascript" src="src/default.easyui.js"></script>
+	<script language="Javascript" type="text/javascript" src="src/editarea/edit_area/edit_area_full.js"></script>
+
+	<script type="text/javascript" src="src/scripts.js"></script>	
+	<script type="text/javascript" src="src/ckeditor/ckeditor.js"></script>
+
+
+
+</head>
+<body style="background-color:#aaa">
+
+	<script type="text/javascript">
+
+		var urlSever = 'server/index.php';
+
+		$(function(){
+
+			//////////////////////////////////////////
+			if(!session(`${urlSever}?op=session`).login){
+				dialog_login();
+			}
+
+			modulos(function(data){
+				desktop(data)				
+			})
+
+			//////////////////////////////////////////
+
+
+		});				
+	</script>
+</body>
+</html>

@@ -1,0 +1,19 @@
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'center'"  border=0 >
+		<table id="datagrid_users" border="0">
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#datagrid_users').datagridMysql({
+		table:'users',
+		url:'server.php?json=users',
+		form:"modulos/users/form.html",
+		columns:[[
+	        {field:'name',title:'NOME'},
+	        {field:'login',title:'LOGIN'},
+	        {field:'data_cadastro',title:'DATA DE CADASTRO'},
+	        {field:'ultimo_acesso',title:'ULTIMO ACESSO'},
+	    ]]
+	})	
+</script>

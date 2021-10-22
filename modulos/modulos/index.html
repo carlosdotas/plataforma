@@ -1,0 +1,43 @@
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'center'"  border=0 >
+		<table id="datagrid_modulos" border="0">
+		</table>
+	</div>
+</div>
+<script type="text/javascript">
+	$('#datagrid_modulos').datagridMysql({
+		table:'modulos',
+		url:'modulos/modulos/server.php?op=modulos',
+		form:"modulos/modulos/form.html",
+		//del:false,
+		columns:[[
+			{field:'status',title:'#',width:90, formatter: function(value,row,index){
+				var checked = true;
+				if(value!='true'){checked=false;}
+				return `<input style="width:80px" class="easyui-switchbutton" data-options="onText:'Ativo',checked:${checked},offText:'Inativo',onChange:function(val){status_modulo('${row.href}',val,this)}">`;
+			}},
+			{field:'iconCls',title:'#',width:40, formatter: function(value,row,index){
+				var checked = true;
+				if(value!='true'){checked=false;}
+				return `<a href="#" class="easyui-linkbutton" iconCls="${value}"></a>`;
+			}},			
+	        {field:'name',title:'Nome do Modulo'},
+	        {field:'href',title:'Href'},
+	        {field:'versao',title:'Versão'},
+	        {field:'data_install',title:'Data Instalação'},
+	    ]]
+	})	
+	function status_modulo(modulo,status,obj){
+		var post = {href:modulo,status:status};
+		postServer('modulos/modulos/server.php?op=status',post,function(data){
+			if(data.error){
+				setTimeout(function(){ 
+					$(obj).switchbutton({
+						checked:true
+					})
+				}, 100);
+
+			}
+		});
+	}
+</script>

@@ -1,0 +1,9 @@
+{
+   "name":"config",
+   "icon":"src\/icons_new\/shop.png",
+   "iconCls":"shop_32",
+   "id":"config",
+   "width":"400",
+   "height":"247",
+   "href":"modulos\/config\/index.html"
+}

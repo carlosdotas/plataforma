@@ -1,0 +1,82 @@
+<meta title=" Adicionar Icons" iconCls="application_32" width="614" height="400" >
+
+<div class="easyui-layout" fit="true">
+    <form id="form_veiculos" action="server/index.php"  method="post">
+    <div data-options="region:'north'" style="overflow:hidden;padding: 3px;background:#eee;">
+        <input class="easyui-textbox buscar_name" prompt="Buscar icone" name="buscar_name" >
+    </div>
+    <div data-options="region:'south'" style="overflow:hidden;" border="0" >
+        <div id="pagination" fit="true" class="easyui-pagination" >
+        </div> 
+    </div>
+    <div data-options="region:'center'" class="dialog_icons" style="padding:5px;background:#eee;" border="0">
+
+    </div>
+    <input type="hidden" id="icon_iconCls" name="icon_iconCls" value=""  >
+    <input type="hidden"id="icons_url" name="icons_url" value=""  >
+    </form>  
+</div>
+
+
+<style type="text/css">
+    .padding3{
+        padding: 3px;
+    }
+    .margin3{
+        margin: 3px;
+    }    
+</style>
+<script language="Javascript" type="text/javascript">
+
+
+
+        $(document).ready(function(){
+            var t = $('.buscar_name');
+            t.textbox('textbox').bind('keyup', function(e){
+                var pagination = $('#pagination').pagination('options')
+                atualiza_list(pagination.pageSize,pagination.pageNumber,$(this).val());
+            }); 
+        })
+
+
+
+        $('#pagination').pagination({
+            pageList:[50,100,200,500],
+            pageSize:100,
+            onSelectPage:function(pageNumber,pageSize){
+
+                atualiza_list(pageSize,pageNumber);
+            }
+        });
+
+        atualiza_list($('#pagination').pagination('options').pageSize,1);
+
+        function atualiza_list(pageSize,pageNumber,buscar=""){
+
+            getJsonServer('modulos/icons/server.php?op=list_imgs&pageSize='+pageSize+'&pageNumber='+pageNumber+'&buscar='+buscar,function(data){
+
+                var iconsContent = '';
+                $.each(data.rows, function( index, value ) {
+                    var icon = value.split('.')[0]+'_32';
+
+                    iconsContent += '<a href="#" plain="true" size="large" onclick="select_icon(\''+icon+'\',\''+value+'\')" class="easyui-linkbutton margin3" title="'+value+'" iconCls="'+icon+'"></a>'
+            
+                });
+
+                $('.dialog_icons').html(iconsContent);
+
+                $('#pagination').pagination({
+                    total:data.total,
+                })
+
+                $('.easyui-linkbutton').linkbutton();
+            });            
+        }
+
+
+        function select_icon(icon,url){
+            $('#icon_iconCls').val(icon);
+            $('#icons_url').val(url);
+        }
+ 
+</script>
