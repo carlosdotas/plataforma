@@ -40,9 +40,12 @@ $.fn.textbox.defaults.width = '100%'
 $.fn.textbox.defaults.labelWidth = '100'
 //$.fn.textbox.defaults.labelPosition = 'top'
 
-$.fn.switchbutton.defaults.width = '100'
+$.fn.switchbutton.defaults.width = '100%'
 $.fn.switchbutton.defaults.labelWidth = '100'
 
+$.fn.passwordbox.defaults.width = '100%'
+$.fn.passwordbox.defaults.labelWidth = '100'
+$.fn.passwordbox.defaults.showEye = true
 
 
 //datagrid

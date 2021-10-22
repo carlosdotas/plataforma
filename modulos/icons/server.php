@@ -2,8 +2,6 @@
 include_once('../../server/funcoes.php');
 
 
-
-
 if($_GET[op]=='list_imgs'){
 
     $files = list_files($_SERVER['root'].'/src/icons_new','png');

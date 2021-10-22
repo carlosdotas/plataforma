@@ -1,0 +1,10 @@
+{"name":"Pdv",
+		"id":"pdv",
+		"icon":"src/icons_new/cart.png",
+		"iconCls":"cart_32",
+		"tabela":"pdv",
+		"width":"100%",
+		"height":"100%",
+		"href":"modulos/pdv/index.html",
+		"form":"modulos/pdv/form.html"
+	}

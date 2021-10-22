@@ -1,20 +1,20 @@
 <meta title=" ADICIONAR USUÁRIOS" iconCls="car_add_32" width="400">
 <div class="dialog_form">
-    <form id="form_users" action="server.php?op=users_set"  method="post">
+    <form id="form_users" action="server/index.php?op=users_set"  method="post">
         <div class="fiels">
-            <input class="easyui-textbox" label="Nome" name="name" required="true" style="width: 100%" data-options="iconCls:'bullet_arrow_left_32'" >
+            <input class="easyui-textbox" label="Nome" name="name" required="true"  >
         </div>     
         <div class="fiels">
-            <input class="easyui-textbox easyui-validatebox" label="Login" name="login" data-options="validType:'minLength[4]'" required="true" style="width: 100%" data-options="iconCls:'bullet_arrow_left_32'" >
+            <input class="easyui-textbox easyui-validatebox" label="Login" name="login" data-options="validType:'minLength[4]'" required="true"  >
         </div>        
         <div class="fiels">
-            <input class="easyui-passwordbox easyui-validatebox" label="Senha" name="senha" data-options="validType:'minLength[4]'" required="true" style="width: 100%" data-options="iconCls:'bullet_arrow_left_32',showEye: true" >
+            <input class="easyui-passwordbox easyui-validatebox" label="Senha" name="senha" data-options="validType:'minLength[4]'" required="true"  data-options="showEye: true" >
         </div>         
         <div class="fiels">
-            <input class="easyui-textbox" readonly label="Data Cadastro" name="cadastro" style="width: 100%" data-options="iconCls:'bullet_arrow_left_32'" >
+            <input class="easyui-textbox" readonly label="Data Cadastro" name="cadastro"  >
         </div>         
         <div class="fiels">
-            <input class="easyui-textbox" readonly label="Ultimo Acesso" name="ultimo_acesso" style="width: 100%" data-options="iconCls:'bullet_arrow_left_32'" >
+            <input class="easyui-textbox" readonly label="Ultimo Acesso" name="ultimo_acesso"  >
         </div>         
 
         <!--<input type="hidden" name="salvar" value="users">-->

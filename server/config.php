@@ -28,8 +28,8 @@ $_SESSION['DB_LOGIN'] 	  = 'root';
 $_SESSION['DB_SENHA'] 	  = '';
 $_SESSION['DB_NAME'] 	  = 'locacao_viculos';
 //$_SESSION['DB_PORT']      = 3306;
-$_SERVER['url']          = 'http://localhost/locacao_veiculos';
-$_SERVER['root']         = 'C:\xampp\htdocs\locacao_veiculos';
+$_SERVER['url']          = 'http://localhost/plataforma';
+$_SERVER['root']         = 'C:\xampp\htdocs\plataforma';
 
 // Database Hostname
 // Hostname of the database server. If you are unsure, "localhost" works in most cases.
