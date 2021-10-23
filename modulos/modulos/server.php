@@ -61,7 +61,7 @@ $("#datagrid_'.$id.'").datagridMysql({
 	return 	$file_index;
 }
 
-function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form){
+function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form,$maximized){
 	$file_config = '{"name":"'.$name.'",
 		"id":"'.$id.'",
 		"icon":"'.$icon.'",
@@ -70,7 +70,8 @@ function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form
 		"width":"'.$width.'",
 		"height":"'.$height.'",
 		"href":"'.$href.'",
-		"form":"'.$form.'"
+		"form":"'.$form.'",
+		"maximized":"'.$maximized.'"
 	}';	
 	return $file_config;
 }
@@ -85,7 +86,8 @@ function create_modulo(
 	$width,
 	$height,
 	$href,
-	$form
+	$form,
+	$maximized
 ){
 
 	if(!is_dir($local)){
@@ -107,7 +109,19 @@ function create_modulo(
 		file_put_contents($local.'/form.html', $file_form);		
 	}
 
-	$file_config = gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form);
+	$file_config = gera_config(
+		$id,
+		$name,
+		$icon,
+		$iconCls,
+		$tabela,
+		$width,
+		$height,
+		$href,
+		$form,
+		$maximized
+	);
+	
 	file_put_contents($local.'/config.json', $file_config);
 
 }
@@ -151,7 +165,9 @@ if($_GET['op'] == 'create_modulo'){
 		$_POST['width'],
 		$_POST['height'],
 		$_POST['href'],
-		$_POST['form']
+		$_POST['form'],
+		$_POST['maximized']
+		
 	);
 
 	echo json_encode('ok');

@@ -47,6 +47,8 @@ $.fn.passwordbox.defaults.width = '100%'
 $.fn.passwordbox.defaults.labelWidth = '100'
 $.fn.passwordbox.defaults.showEye = true
 
+$.fn.checkbox.defaults.labelWidth = '100'
+
 
 //datagrid
 $.fn.datagrid.defaults.pagination = true
