@@ -17,10 +17,10 @@
 
 		var venda_cod = getCodTimer();
 
-		$('#content').tabs('add',{
-			title: 'Venda 01',
-			id:'venda01',
-			content:template_carrinho(venda_cod)
+		$('#content').vendas({
+			//title: 'Venda 01',
+			//id:venda_cod,
+			//content:template_carrinho(venda_cod)
 		});
 
 	}
@@ -38,9 +38,137 @@
 						    </thead>
 						</table>				    	
 				    </div>
-				    <div data-options="region:'east'" style="width:150px;" border="0">
+				    <div data-options="region:'east'" id="totais_${venda_cod}" style="width:150px;" border="0">
 				    	
 				    </div>
 				</div>`
 	}
+
+
+
+(function($){
+
+	function layout(target){
+		var state = $.data(target, 'vendas');
+		var opts = state.options;
+		
+		var content = `<div class="easyui-layout" fit="true">
+			    <div data-options="region:'center'" border="0">
+					<table class="easyui-datagrid" id="list_${venda_cod}" fit="true" border="0">
+					    <thead>
+					        <tr>
+					            <th data-options="field:'code',width:100">Code</th>
+					            <th data-options="field:'name',width:100">Name</th>
+					            <th data-options="field:'price',width:100,align:'right'">Price</th>
+					        </tr>
+					    </thead>
+					</table>				    	
+			    </div>
+			    <div data-options="region:'east'" id="totais_${venda_cod}" style="width:150px;" border="0">
+			    	
+			    </div>
+			</div>`;
+
+		return content;
+	}
+
+
+
+	function buildEditor(target){
+		
+		var opts = $.data(target, 'vendas').options;
+
+		var panel = $(target).panel($.extend({}, opts, {
+			content:layout(target)
+		}));
+
+		//$.parser.parse();
+
+
+
+
+
+		//var getData = $(target).datagrid('getData');
+		
+
+		
+	}
+
+	$.fn.vendas = function(options, param){
+
+		if (typeof options == 'string'){
+			var method = $.fn.vendas.methods[options];
+			if (method){
+				return method(this, param);
+			} else {
+				return this.dialog(options, param);
+			}
+		}
+
+		options = options || {};
+		return this.each(function(){
+			var state = $.data(this, 'vendas');
+			if (state){
+				$.extend(state.options, options);
+			} else {
+				state = $.data(this, 'vendas', {
+					options: $.extend({}, $.fn.vendas.defaults, $.fn.vendas.parseOptions(this), options)
+				});
+			}
+			buildEditor(this);
+		});
+	};
+
+	$.fn.vendas.methods = {
+		options: function(jq){
+			return jq.data('vendas').options;
+		},
+		getEditor: function(jq){
+			return jq.closest('.vendas').children('.vendas-body');
+		},
+		destroy: function(jq){
+			return jq.each(function(){
+				var opts = $(this).vendas('options');
+				$(opts.dlgToolbar).panel('clear');
+				$(this).dialog('destroy');
+			});
+		},
+	};
+
+	$.fn.vendas.parseOptions = function(target){
+		return $.extend({}, $.fn.datagrid.parseOptions(target), {
+
+		});
+	};
+
+	$.fn.vendas.defaults = $.extend({}, $.fn.datagrid.defaults, {
+//		fit:true,
+//		pagination:true,
+//		singleSelect:true,
+//		remoteFilter:true,
+//		defaultFilterType:'textbox'
+		//title: 'null',
+		//cls: 'vendas',
+		//bodyCls: 'vendas-body',
+		//draggable: false,
+		//shadow: false,
+		//closable: false,
+		//inline: true,
+		//border: 'thin',
+		//modal:true,
+
+	});
+
+	$.parser.plugins.push('vendas');
+
+})(jQuery);
+
+
+
+
+
+
+
+
+
 </script>
