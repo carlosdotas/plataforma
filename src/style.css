@@ -69,3 +69,29 @@ fieldset{
 .desktop-timer{
 	text-shadow: 0.1em 0.1em 0.10em #000!important;
 }
+
+
+
+.cls_total input{
+	background-color: #FFC7C7;
+	padding-top: 5px;
+	padding-bottom: 5px;
+	font-size: 20px!important;
+	font-weight: bold;
+}
+.cls_pago input{
+	background-color: #C7E3C7;
+	font-size: 18px!important;
+}
+.cls_troco input{
+	background-color: #FFFFC7;
+	font-size: 18px!important;
+}
+.cls_trocoNegativo input{
+	background-color: #FFFFC7;
+	color: #000!important;
+}
+.cls_trocoPositivo input{
+	background-color: #eee;
+	color: #aaa!important;
+}

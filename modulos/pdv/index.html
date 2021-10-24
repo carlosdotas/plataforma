@@ -1,167 +1,80 @@
-<div fit="true" class="easyui-layout" >
-	<div data-options="region:'west'" style="width:200px;" border="0"></div>
-    <div data-options="region:'center'" >
-    	<div class="easyui-tabs" id="content" fit="true" border='0'>
+<script type="text/javascript" src="modulos/pdv/pdv.easyui.js"></script>
+<div id="vendas"></div>
 
-    	</div>
-    </div>    
-</div>
 <script type="text/javascript">
-	var carrinhos = [];
+function getRandomInt(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min)) + min;
+}
 
-	$( document ).ready(function() {
-		gera_carrinho()
-	});	
+$( document ).ready(function() {
 
-	function gera_carrinho(){
+	$('#vendas').pdv();
 
-		var venda_cod = getCodTimer();
-
-		$('#content').vendas({
-			//title: 'Venda 01',
-			//id:venda_cod,
-			//content:template_carrinho(venda_cod)
-		});
-
-	}
-
-	function template_carrinho(venda_cod){
-		return `<div class="easyui-layout" fit="true">
-				    <div data-options="region:'center'" border="0">
-						<table class="easyui-datagrid" id="list_${venda_cod}" fit="true" border="0">
-						    <thead>
-						        <tr>
-						            <th data-options="field:'code',width:100">Code</th>
-						            <th data-options="field:'name',width:100">Name</th>
-						            <th data-options="field:'price',width:100,align:'right'">Price</th>
-						        </tr>
-						    </thead>
-						</table>				    	
-				    </div>
-				    <div data-options="region:'east'" id="totais_${venda_cod}" style="width:150px;" border="0">
-				    	
-				    </div>
-				</div>`
-	}
-
-
-
-(function($){
-
-	function layout(target){
-		var state = $.data(target, 'vendas');
-		var opts = state.options;
-		
-		var content = `<div class="easyui-layout" fit="true">
-			    <div data-options="region:'center'" border="0">
-					<table class="easyui-datagrid" id="list_${venda_cod}" fit="true" border="0">
-					    <thead>
-					        <tr>
-					            <th data-options="field:'code',width:100">Code</th>
-					            <th data-options="field:'name',width:100">Name</th>
-					            <th data-options="field:'price',width:100,align:'right'">Price</th>
-					        </tr>
-					    </thead>
-					</table>				    	
-			    </div>
-			    <div data-options="region:'east'" id="totais_${venda_cod}" style="width:150px;" border="0">
-			    	
-			    </div>
-			</div>`;
-
-		return content;
-	}
-
-
-
-	function buildEditor(target){
-		
-		var opts = $.data(target, 'vendas').options;
-
-		var panel = $(target).panel($.extend({}, opts, {
-			content:layout(target)
-		}));
-
-		//$.parser.parse();
-
-
-
-
-
-		//var getData = $(target).datagrid('getData');
-		
-
-		
-	}
-
-	$.fn.vendas = function(options, param){
-
-		if (typeof options == 'string'){
-			var method = $.fn.vendas.methods[options];
-			if (method){
-				return method(this, param);
-			} else {
-				return this.dialog(options, param);
-			}
-		}
-
-		options = options || {};
-		return this.each(function(){
-			var state = $.data(this, 'vendas');
-			if (state){
-				$.extend(state.options, options);
-			} else {
-				state = $.data(this, 'vendas', {
-					options: $.extend({}, $.fn.vendas.defaults, $.fn.vendas.parseOptions(this), options)
-				});
-			}
-			buildEditor(this);
-		});
-	};
-
-	$.fn.vendas.methods = {
-		options: function(jq){
-			return jq.data('vendas').options;
+	$('body').teclas({
+		Enter:function(){
+			$('#vendas').pdv('somaMais');
 		},
-		getEditor: function(jq){
-			return jq.closest('.vendas').children('.vendas-body');
+		F2:function(){
+			$('#vendas').pdv('appendRow',{
+				cod: getRandomInt(1, 5),
+				nome: "Produto "+getRandomInt(1, 500),
+				preco: getRandomInt(1, 50).toFixed(2),
+				qnt: 1
+			});			
+		},	
+		F3:function(){
+			$('#vendas').pdv('appendRow',{
+				cod: getRandomInt(10, 100000),
+				nome: "Pagamento "+getRandomInt(1, 500),
+				preco: -getRandomInt(1, 50).toFixed(2),
+				qnt: 1
+			});			
+		},					
+		F4:function(){
+			$('#vendas').pdv('addTab');			
 		},
-		destroy: function(jq){
-			return jq.each(function(){
-				var opts = $(this).vendas('options');
-				$(opts.dlgToolbar).panel('clear');
-				$(this).dialog('destroy');
-			});
+		Esc:function(){
+			alert()		
 		},
-	};
+		Delete:function(){ //Seleciona para Cima
+			$('#vendas').pdv('deleteRow');			
+		},			
+		ArrowUp:function(){ //Seleciona para Cima
+			$('#vendas').pdv('arrowUp');			
+		},
+		ArrowDown:function(){ //Seleciona para Baixo
+			$('#vendas').pdv('arrowDown');
+		},
+		ArrowLeft:function(){ //Seleciona Lista Pra Esquerda
+			$('#vendas').pdv('arrowLeft');
+		},	
+		ArrowRight:function(){ //Seleciona Lista Pra Direita
+			$('#vendas').pdv('arrowRight');
+		},
+		'+':function(){
+			$('#vendas').pdv('somaMais');
+		},
+		'-':function(){ //Remove Item
+			$('#vendas').pdv('somaMenos');
+		},	
+		'*':function(){ //Remove Item
+			$('#vendas').pdv('multimipar');
+		},		
+		'/':function(){ //Remove Item
+			$('#vendas').pdv('dividir');
+		},		
+		'Escape':function(){ //Remove Item
+			$('#vendas').pdv('closeTab');
+		},							
+	})
 
-	$.fn.vendas.parseOptions = function(target){
-		return $.extend({}, $.fn.datagrid.parseOptions(target), {
 
-		});
-	};
+});	
 
-	$.fn.vendas.defaults = $.extend({}, $.fn.datagrid.defaults, {
-//		fit:true,
-//		pagination:true,
-//		singleSelect:true,
-//		remoteFilter:true,
-//		defaultFilterType:'textbox'
-		//title: 'null',
-		//cls: 'vendas',
-		//bodyCls: 'vendas-body',
-		//draggable: false,
-		//shadow: false,
-		//closable: false,
-		//inline: true,
-		//border: 'thin',
-		//modal:true,
 
-	});
 
-	$.parser.plugins.push('vendas');
-
-})(jQuery);
 
 
 
