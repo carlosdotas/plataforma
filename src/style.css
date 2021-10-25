@@ -95,3 +95,8 @@ fieldset{
 	background-color: #eee;
 	color: #aaa!important;
 }
+
+.inputsEasyui {
+	padding: 4px;
+	padding-top: 2px;
+}
