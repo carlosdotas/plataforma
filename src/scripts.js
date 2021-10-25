@@ -355,4 +355,10 @@ function geraCodigo(){
 }
 
 
-
+function search (vetor, elemento)
+{
+ if(vetor.lastIndexOf(elemento)>=0)
+  return true;
+ else
+  return false
+}

@@ -9,9 +9,23 @@
 		$(target).find('form').html('');
 		$.each(opts.fields[0], function( index, value ) {
 
+			var inputs_types = ["hidden","validatebox","textbox","passwordbox","maskedbox","combo","combobox","combotree","combogrid","combotreegrid","tagbox","numberbox","datebox","datetimebox","datetimespinner","calendar","spinner","numberspinner","timespinner","timepicker","slider","filebox","checkbox","radiobutton"];
+
 			value.label = value.title;
-			$(target).find('form').append(`<div class="inputsEasyui"><input name="${value.field}" ></div>`);
-			eval(`$(target).find('form').find( 'input[name="${value.field}"]' ).${value.type}(value);`);
+			if(!value.type) value.type="textbox"
+			if(!value.value) value.value=""
+
+			if(search (inputs_types, value.type)){
+
+				if(value.type=='hidden'){
+					$(target).find('form').append(`<input type="hidden" name="${value.field}" value="${value.value}" >`);
+				}else{
+					$(target).find('form').append(`<div class="inputsEasyui"><input name="${value.field}" ></div>`);
+					eval(`$(target).find('form').find( 'input[name="${value.field}"]' ).${value.type}(value);`);
+				}
+
+			}
+
 
 		});		
 
@@ -20,7 +34,6 @@
 	function buildEditor(target){
 		
 		var opts = $.data(target, 'inputs').options;
-
 		$(target).append('<form border="0" >Formulario</form>');
 
 		addInputs(target)
