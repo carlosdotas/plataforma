@@ -1,5 +1,30 @@
 (function($){
 
+
+	function getRowSelec(target){
+		var tab = target.find('.tab_pdv').tabs('getSelected');
+		return tab.find('.list_carrinho').datagrid('getSelected');
+	}
+
+	function updateRow(target,data){
+
+
+		var tab = target.find('.tab_pdv').tabs('getSelected');
+		var getSelected = tab.find('.list_carrinho').datagrid('getSelected');
+        var rowIndex = tab.find('.list_carrinho').datagrid("getRowIndex", getSelected);		
+       	tab.find('.list_carrinho').datagrid('updateRow',{
+			index: rowIndex,
+			row: {cod: data.cod, 
+				nome: data.nome, 
+				preco: data.preco,
+				qnt:getSelected.qnt,
+				total: somaRow(data.preco,getSelected.qnt-0)
+			}
+		});   
+       	calculoTotal(target)
+
+	}
+
 	function deleteRow(target){
 		var tab = target.find('.tab_pdv').tabs('getSelected');
 		var getSelected = tab.find('.list_carrinho').datagrid('getSelected');
@@ -160,6 +185,13 @@
 
 	function appendRow(target,opts){
 		var tab = target.find('.tab_pdv').tabs('getSelected');
+
+		if(!tab){
+			add_tab(target,opts);
+			appendRow(target,opts);
+			return;
+		}
+
 		var getRows = tab.find('.list_carrinho').datagrid('getRows');
 		var edit = false;
 		var index_edit = 0;
@@ -194,13 +226,15 @@
 		target.find('.tab_pdv').tabs('close',index)		
 	}
 
+	var tabs = 0
 	function add_tab(target,opts){
 
 		var getTabIndex = target.find('.tab_pdv').tabs('getSelected');
 		var index = target.find('.tab_pdv').tabs('getTabIndex',getTabIndex)-0;
 
+		tabs++;
 		target.find('.tab_pdv').tabs('add',{
-			title:(index+2),
+			title:(tabs),
 			iconCls:'cart_32',
 			border:0,
 			content:'<div class="easyui-layout"></div>',
@@ -257,22 +291,10 @@
 
 		state.layoutDialog = $(target).panel({
 			fit:true,
-			border:0
-		});
-		state.layoutDialog.layout($.extend({}, opts,{
-			fit:true
-		}));
-		state.layoutDialog.layout('add',{
-		    region: 'west',
-		    title: 'west',
-		    border:0,
-		    width: 180
-		});
-		state.layoutDialog.layout('add',{
-		    region: 'center',
 		    content:'<div class="tab_pdv"></div>',
 		    border:0
 		});
+
 		state.layoutDialog.find('.tab_pdv').tabs({
 			boder:0,
 			fit:true
@@ -345,6 +367,12 @@
 		},
 		closeTab: function(jq){
 			return closeTab(jq);
+		},
+		getRowSelec: function(jq){
+			return getRowSelec(jq);
+		},	
+		updateRow: function(jq,data){
+			return updateRow(jq,data);
 		},
 		destroy: function(jq){
 			return jq.each(function(){

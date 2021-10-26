@@ -25,11 +25,40 @@
 
 
 	function sendForm(target,onSend,onSave,onError){
-
+		var opts = $.data(target, 'dialogForm').options;
 		const form =  $(target).dialog('dialog').find('form');
 
 		$.messager.progress();  
 
+        if(opts.post==false){
+            var isValid = $(form).form('validate');
+            if (!isValid){
+            	
+            	$.messager.alert({
+					title: 'Erro!',
+					msg: 'Preencha todos os Campos Obrigatórios!',
+					fn: function(){
+						$(form).form('validate'); 
+					}
+				});
+                
+                
+                $.messager.progress('close');
+                return isValid;   
+
+            }
+			var serialize = {}
+			$.each($(form).serializeArray(), function( index, value ) {						
+            	serialize[value.name] = value.value;
+            });
+
+			opts.onSend(serialize);
+ 			//$(target).dialog('close')
+			//$(target).dialog('destroy');  
+			$.messager.progress('close');			
+			return;
+		}
+	        		
 	    $(form).form('submit', {
 	        ajax:true,        
 	        onSubmit: function(){
@@ -46,12 +75,16 @@
 	                
 	                
 	                $.messager.progress('close');
+
 	            }
 	            return isValid; 
 	        },
 	        success: function(dados){
 	        	
 	        	var retorno = {}
+
+
+
 
 				try {
 				   	retorno = JSON.parse(dados);
@@ -74,8 +107,14 @@
 					if(onSave){onError(retorno)}
 	        	}else{
 
+
 					if(onSend){
-						onSend($(form).serializeArray());
+						var serialize = {}
+						$.each($(form).serializeArray(), function( index, value ) {						
+			            	serialize[value.name] = value.value;
+		                });
+
+						onSend(serialize);
 						$(target).dialog('close')
 						$(target).dialog('destroy')			
 						return;
@@ -101,14 +140,6 @@
 
 	function onPost(target){
 		var opts = $.data(target, 'dialogForm').options;
-
-		if(opts.post==false){
-			const form =  $(target).dialog('dialog').find('form');
-			opts.onSend($(form).serializeArray());
- 			$(target).dialog('close')
-			$(target).dialog('destroy');  			
-			return;
-		}
 
 		sendForm(target,
 		opts.onSend,
@@ -178,10 +209,16 @@
 				buttons:buttons,
 				onOpen:function(){
 					const form =  $(target).dialog('dialog').find('form');
-					$(form).form('load',opts.server);
+					
 					if(opts.formData){
-						$(form).form('load',opts.formData);
+						setTimeout(function(){ 
+							$(form).form('load',opts.formData);
+						 }, 100);
+						
+					}else{
+						$(form).form('load',opts.server);
 					}
+
 					$(this).prepend('<script>var dialogForm = '+$(this).attr('id')+';</script>');					
 				},			
 				onClose:function(){

@@ -1087,6 +1087,13 @@ if($_GET[buscar_mysql]){
 	die;
 }
 
+if($_GET[mysql]){
+  $mysql = $_GET[mysql];
+  unset($_GET[mysql]);
+  echo json_encode(consultar_mysql($mysql,$_GET)[rows][0]);
+  die;
+}
+
 if($_GET[consultar_mysql]){
   if($_GET[qnt])$_POST[rows]=$_GET[qnt];$_POST['page']=1;
 	echo json_encode(consultar_mysql($_GET[consultar_mysql],$_GET[busca],$_GET[orden],$_GET[orient]));

@@ -33,13 +33,6 @@
 	}
 })( jQuery );
 
-//////////////////////////////////////////////////////////////////
-(function( $ ){
-	$.fn.easuiTabs = function(dados){
-
-	}
-})( jQuery );
-
 
 //////////////////////////////////////////////////////////////////
 (function( $ ){
@@ -183,6 +176,8 @@
 //////////////////////////////////////////////////////////////////
 (function( $ ){
 	$.fn.teclas = function(dados){
+		$( "body" ).unbind( "keyup");
+		$( "body" ).unbind( "keydown");
 
 		if(!dados.tipo)dados.tipo = "keydown";
 		$( this ).bind( dados.tipo, function(event) {
@@ -207,10 +202,16 @@
 //Funçao de Busca Jquery
 //////////////////////////////////////////////////////////////////
 (function( $ ){
-	$.fn.buscar = function(dados){	
-		$( this ).bind( "keyup", function(event) {	
 
-			//console.log(event.which);
+	function isNumber(n) {
+	    return !isNaN(parseFloat(n)) && isFinite(n);
+	}
+
+	$.fn.buscar = function(dados){	
+
+		if(!dados.onkeyup)dados.onkeyup = function(){}
+
+		$( this ).bind( "keyup", function(event) {	
 
 			var text = '';
 			var type = 'text';
@@ -294,7 +295,6 @@
 				    break;				    
 				}
 
-
 				if(dados.onkeyup)dados.onkeyup(output);
 
 			}else{
@@ -305,7 +305,6 @@
 				event.preventDefault();
 				$(this).maskMoney('destroy');
 				$(this).val('');			
-				//if(dados.onSend)dados.onClean(output);	
 			}		
 			if(event.which==13){	//Tecla Enter
 				event.preventDefault();

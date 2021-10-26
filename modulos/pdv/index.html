@@ -1,36 +1,185 @@
 <script type="text/javascript" src="modulos/pdv/pdv.easyui.js"></script>
-<div id="vendas"></div>
+	
+<div class="easyui-layout" fit="true">
+    <div data-options="region:'west',title:'Produtos'" style="width:180px;">
+    	<input id="buscar_produtos">
+    </div>
+    <div data-options="region:'center'" id="vendas"></div>
+</div>
+
+</div>
 
 <script type="text/javascript">
-function getRandomInt(min, max) {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min)) + min;
-}
 
 $( document ).ready(function() {
 
 	$('#vendas').pdv();
 
+	$('#buscar_produtos').focus()
+
+	$('#buscar_produtos').buscar({
+		onKeyup:function(){
+
+		},
+		onSend:function(data){
+
+			//console.log(data)
+
+			if(data.val==0){
+				$('#vendas').pdv('somaMais');
+				return;
+			}
+
+			if(data.type=='cod'){
+
+					if(data.val.substr(0, 1)==2){
+
+						let produto = {};
+
+						produto.cod = getCodTimer();
+						produto.preco = (data.val.substr(-8,7)/100).toFixed(2);
+						produto.produto = 'Produto de Balança';
+						produto.type = 'balanca';
+
+						if(produto.preco=='0.00'){
+							produto.preco = prompt("Qual é o Preço do Produto?").replace(",", ".");
+						}
+
+						var dados = {
+							cod:produto.cod,
+							nome:produto.produto,
+							preco:produto.preco,
+							qnt: 1
+						}
+
+						$('#vendas').pdv('appendRow',dados);	
+						return;
+					}
+
+					$.getJSON( "server/index.php?mysql=produtos&cod="+data.val, function( produtos ) {
+					  
+					  if(produtos.nome){
+
+								var dados = {
+									cod:produtos.cod,
+									nome:produtos.nome,
+									preco:produtos.preco_venda,
+									qnt: 1
+								}
+
+							$('#vendas').pdv('appendRow',dados);	
+							$('#buscar_produtos').focus()
+
+							return;	
+						}else{
+
+							googleSearch(data.val,function(nome){
+								console.log(nome)
+
+								if(nome.items){
+									nome=nome.items[0].title
+								}else{
+									nome='Produto Avulso'
+								}
+
+								var dados = {
+									cod:data.val,
+									nome:nome,
+									preco: 0,
+								}
+
+								$('').dialogForm({
+						        href:"modulos/produtos/form.html",
+						        server:'server/index.php?mysql=produtos&cod='+data.val,
+						        formData:dados,
+							      onSend:function(dados){
+							      	$('#buscar_produtos').focus()
+
+											$('#vendas').pdv('appendRow',{
+												cod: dados.cod,
+												nome: dados.nome,
+												preco: dados.preco_venda,
+												qnt: 1
+											});
+						        }         
+						    });	
+
+						  });
+						}
+					});
+
+
+
+			    return;
+			}
+
+			if(data.type=='money'){
+				nome_produto = 'Produto Avulso';
+			}
+
+			if(data.type=='negative'){
+				nome_produto = 'Pagamento';
+			}
+
+			if(data.type=='text'){
+				nome_produto = data.val;
+				$('').dialogForm({
+		        href:"modulos/produtos/form.html",
+		        formData:{
+		        	cod: getCodTimer(),
+		        	nome: nome_produto,
+		        },
+			      onSend:function(dados){		
+			      		$('#buscar_produtos').focus()
+								$('#vendas').pdv('appendRow',{
+									cod: dados.cod,
+									nome: dados.nome,
+									preco: dados.preco_venda,
+									qnt: 1
+								});
+		        }         
+		    });	
+		    return;
+			}
+
+			var cod = getCodTimer();
+
+			$('#vendas').pdv('appendRow',{
+				cod:cod,
+				nome: nome_produto,
+				preco:data.val,
+				type:data.type,
+				qnt:1
+			});
+
+		}
+	});	
+
 	$('body').teclas({
-		Enter:function(){
-			$('#vendas').pdv('somaMais');
+		keyDown:function(){
+
 		},
 		F2:function(){
-			$('#vendas').pdv('appendRow',{
-				cod: getRandomInt(1, 5),
-				nome: "Produto "+getRandomInt(1, 500),
-				preco: getRandomInt(1, 50).toFixed(2),
-				qnt: 1
-			});			
+			getRowSelec = $('#vendas').pdv('getRowSelec');
+			getRowSelec.preco_venda = getRowSelec.preco
+			$('').dialogForm({
+	        href:"modulos/produtos/form.html",
+	        formData:getRowSelec,
+		      onSend:function(dados){
+		      	$('#buscar_produtos').focus()
+						$('#vendas').pdv('updateRow',{
+							cod: dados.cod,
+							nome: dados.nome,
+							preco: dados.preco_venda
+						});						
+	        }         
+	    });	
+	    setTimeout(function(){ 
+	    	$('.preco_venda').textbox('textbox').select();
+	    }, 100);
 		},	
 		F3:function(){
-			$('#vendas').pdv('appendRow',{
-				cod: getRandomInt(10, 100000),
-				nome: "Pagamento "+getRandomInt(1, 500),
-				preco: -getRandomInt(1, 50).toFixed(2),
-				qnt: 1
-			});			
+		
 		},					
 		F4:function(){
 			$('#vendas').pdv('addTab');			
@@ -56,14 +205,11 @@ $( document ).ready(function() {
 		'+':function(){
 			$('#vendas').pdv('somaMais');
 		},
-		'-':function(){ //Remove Item
+		'/':function(){ //Remove Item
 			$('#vendas').pdv('somaMenos');
 		},	
 		'*':function(){ //Remove Item
 			$('#vendas').pdv('multimipar');
-		},		
-		'/':function(){ //Remove Item
-			$('#vendas').pdv('dividir');
 		},		
 		'Escape':function(){ //Remove Item
 			$('#vendas').pdv('closeTab');

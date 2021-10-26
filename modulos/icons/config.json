@@ -6,5 +6,7 @@
 		"width":"80%",
 		"height":"80%",
 		"href":"modulos/icons/index.html",
-		"form":"modulos/icons/form.html"
+		"form":"modulos/icons/form.html",
+		"windows":"",
+		"maximized":""
 	}

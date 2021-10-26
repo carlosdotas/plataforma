@@ -1,0 +1,12 @@
+{"name":"Produtos",
+		"id":"produtos",
+		"icon":"src/icons_new/application.png",
+		"iconCls":"application_32",
+		"tabela":"produtos",
+		"width":"80%",
+		"height":"80%",
+		"href":"modulos/produtos/index.html",
+		"form":"modulos/produtos/form.html",
+		"windows":"true",
+		"maximized":""
+	}

@@ -13,7 +13,7 @@ if($_GET['op'] == 'session'){
 
 ////////////////////////////////////////////////
 if($_GET['op'] == 'login'){	
-	echo login($_GET['user'],$_GET['senha']);
+	echo login($_POST['login'],$_POST['senha']);
 	die;
 }
 

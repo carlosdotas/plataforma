@@ -10,7 +10,10 @@
 	<link rel="stylesheet" type="text/css" href="src/style.css">
 	<link rel="stylesheet" type="text/css" href="src/icons_new/icons.css">
 	<link rel="stylesheet" type="text/css" href="src/desktop.css">
-	
+	<link rel="stylesheet" type="text/css" href="src/bootstrap-5.1.3/css/bootstrap.min.css">
+	<link rel="stylesheet" type="text/css" href="src/inputs.easyui.css">
+
+	<script type="text/javascript" src="src/bootstrap-5.1.3/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="src/jquery.min.js"></script>
 	<script type="text/javascript" src="src/easyui/jquery.easyui.min.js"></script>
 	<script type="text/javascript" src="src/jquery.desktop.js"></script>
@@ -22,10 +25,12 @@
 	<script type="text/javascript" src="src/easyui/locale/easyui-lang-pt_BR.js"></script>
 	<script type="text/javascript" src="src/default.easyui.js"></script>
 	<script type="text/javascript" src="src/jquery.funcoes.js"></script>
-	<script language="Javascript" type="text/javascript" src="src/editarea/edit_area/edit_area_full.js"></script>
 
-	<script type="text/javascript" src="src/extends.easyui.js"></script>
+	<script type="text/javascript" src="src/inputs.easyui.js"></script>
 
+	<script type="text/javascript" src="src/jquery.maskMoney.min.js"></script>
+
+	
 	<script type="text/javascript" src="src/scripts.js"></script>	
 	<script type="text/javascript" src="src/ckeditor/ckeditor.js"></script>
 
@@ -42,7 +47,15 @@
 
 			//////////////////////////////////////////
 			if(!session(`${urlSever}?op=session`).login){
-				//dialog_login();
+	
+				$('').dialogForm({
+			        href:"modulos/login/form.html",
+			        closable:false,
+			        onSend:function(dados){
+			           console.log(dados)
+			        }         
+			    });	
+
 			}
 
 			modulos(function(data){

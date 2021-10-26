@@ -1,12 +1,17 @@
-<meta title=" Adicionar Login" iconCls="set_password_32" width="500" >
-<form id="form_veiculos" action="server/index.php"  method="post">
-<div class="easyui-tabs" border=0>
-    <div title="Inicio" class="dialog_form"  >
-        <input class="easyui-textbox" required label="Nome" name="name" >
-    </div> 
-</div>
-<input type="hidden" name="salvar" value="login" >
-<input type="hidden" name="login_id">
-</form>  
-<script language="Javascript" type="text/javascript">
+<meta title="Login" iconCls="application_32" width="300" height="190" >
+<form method="post" action="server/index.php?op=login">
+<div class="formSimples"></div>
+</form>
+<script type="text/javascript">
+
+$( document ).ready(function() {
+    $('.formSimples').inputs({
+        fields:[[
+            {field:'login',title:'Login',type:"textbox",required:true},
+            {field:'senha',title:'Senha',type:"passwordbox",required:true}
+        ]]
+    })
+});
+
+
 </script>

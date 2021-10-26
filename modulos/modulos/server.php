@@ -61,7 +61,7 @@ $("#datagrid_'.$id.'").datagridMysql({
 	return 	$file_index;
 }
 
-function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form,$maximized){
+function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form,$windows,$maximized){
 	$file_config = '{"name":"'.$name.'",
 		"id":"'.$id.'",
 		"icon":"'.$icon.'",
@@ -71,6 +71,7 @@ function gera_config($id,$name,$icon,$iconCls,$tabela,$width,$height,$href,$form
 		"height":"'.$height.'",
 		"href":"'.$href.'",
 		"form":"'.$form.'",
+		"windows":"'.$windows.'",
 		"maximized":"'.$maximized.'"
 	}';	
 	return $file_config;
@@ -87,6 +88,7 @@ function create_modulo(
 	$height,
 	$href,
 	$form,
+	$windows,
 	$maximized
 ){
 
@@ -119,6 +121,7 @@ function create_modulo(
 		$height,
 		$href,
 		$form,
+		$windows,
 		$maximized
 	);
 	
@@ -166,6 +169,7 @@ if($_GET['op'] == 'create_modulo'){
 		$_POST['height'],
 		$_POST['href'],
 		$_POST['form'],
+		$_POST['windows'],
 		$_POST['maximized']
 		
 	);

@@ -1,10 +1,12 @@
-{
-   "name":"Usu\u00e1rios",
-   "icon":"src\/icons_new\/users_3.png",
-   "iconCls":"users_3_32",
-   "id":"users",
-   "status":"true",
-   "width":"95%",
-   "height":"95%",
-   "href":"modulos\/users\/index.html"
-}
+{"name":"Users",
+		"id":"users",
+		"icon":"src/icons_new/users_3.png",
+		"iconCls":"users_3_32",
+		"tabela":"users",
+		"width":"95%",
+		"height":"95%",
+		"href":"modulos/users/index.html",
+		"form":"modulos/users/form.html",
+		"windows":"true",
+		"maximized":""
+	}

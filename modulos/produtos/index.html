@@ -1,0 +1,18 @@
+<div class="easyui-layout" fit="true">
+	<div data-options="region:'center'"  border=0 >
+		<table id="datagrid_produtos" border="0"></table>
+	</div>
+</div>
+<script type="text/javascript">
+$("#datagrid_produtos").datagridMysql({
+    table:"produtos",
+    url:`${urlSever}?json=produtos`,
+    form:"modulos/produtos/form.html",
+    columns:[[
+    	{field:'cod',title:'Código'},
+        {field:'nome',title:'Nome'},
+        {field:'preco_compra',title:'Preço de Compra'},
+        {field:'preco_venda',title:'Preço de Venda'},
+    ]]
+})
+</script>

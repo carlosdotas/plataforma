@@ -7,5 +7,6 @@
 		"height":"100%",
 		"href":"modulos/pdv/index.html",
 		"form":"modulos/pdv/form.html",
-		"maximized":"on"
+		"windows":"true",
+		"maximized":""
 	}

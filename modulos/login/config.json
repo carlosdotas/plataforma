@@ -3,9 +3,10 @@
 		"icon":"src/icons_new/set_password.png",
 		"iconCls":"set_password_32",
 		"tabela":"login",
-		"width":"80%",
-		"height":"80%",
+		"width":"60%",
+		"height":"auto",
 		"href":"modulos/login/index.html",
 		"form":"modulos/login/form.html",
+		"windows":"",
 		"maximized":""
 	}

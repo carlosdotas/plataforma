@@ -187,6 +187,14 @@
 			restoreApp(target, app);
 			return;
 		}		
+
+		if(app.windows!='true'){
+			$.get( app.href, function( data ) {
+				$('body').append(data);;
+			});
+			return;
+		}
+
 		var winOpts = $.extend({
 			cls: 'desktop-window',
 			headerCls: 'desktop-window-header',

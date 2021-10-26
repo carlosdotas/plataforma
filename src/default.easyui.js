@@ -27,28 +27,12 @@ $.extend($.fn.validatebox.defaults.rules, {
     }
 });    
 
-//numberbox
-$.fn.numberbox.defaults.precision = 2
-$.fn.numberbox.defaults.decimalSeparator = ","
-$.fn.numberbox.defaults.iconCls = 'bullet_arrow_left_32'
-$.fn.numberbox.defaults.width = '100%'
-$.fn.numberbox.defaults.labelWidth = '100'
 
-//textBox
-$.fn.textbox.defaults.iconCls = 'bullet_arrow_left_32'
-$.fn.textbox.defaults.width = '100%'
-$.fn.textbox.defaults.labelWidth = '100'
-//$.fn.textbox.defaults.labelPosition = 'top'
-
-$.fn.switchbutton.defaults.width = '100%'
-$.fn.switchbutton.defaults.labelWidth = '100'
-
-$.fn.passwordbox.defaults.width = '100%'
-$.fn.passwordbox.defaults.labelWidth = '100'
-$.fn.passwordbox.defaults.showEye = true
-
-$.fn.checkbox.defaults.labelWidth = '100'
-
+//Padrão todos Inputs
+$.each(["switchbutton","validatebox","textbox","passwordbox","maskedbox","combo","combobox","combotree","combogrid","combotreegrid","tagbox","numberbox","datebox","datetimebox","datetimespinner","calendar","spinner","numberspinner","timespinner","timepicker","slider","filebox","checkbox","radiobutton"], function( index, value ) {
+	$.fn[value].defaults.width = '100%'
+	$.fn[value].defaults.labelWidth = '100'		
+})
 
 //datagrid
 $.fn.datagrid.defaults.pagination = true

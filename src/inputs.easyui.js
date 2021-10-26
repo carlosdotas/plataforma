@@ -1,43 +1,50 @@
+//Inputs
+///////////////////////////////////////////////////////////////////////////////////////
 (function($){
-
 
 	function addInputs(target){
 
 		var state = $.data(target, 'inputs');
 		var opts = state.options;
 
-		$(target).find('form').html('');
+		$(target).find('.formRows').html('');
 		$.each(opts.fields[0], function( index, value ) {
 
 			var inputs_types = ["hidden","validatebox","textbox","passwordbox","maskedbox","combo","combobox","combotree","combogrid","combotreegrid","tagbox","numberbox","datebox","datetimebox","datetimespinner","calendar","spinner","numberspinner","timespinner","timepicker","slider","filebox","checkbox","radiobutton"];
 
-			value.label = value.title;
+			if(!value.label) value.label = value.title;
 			if(!value.type) value.type="textbox"
 			if(!value.value) value.value=""
+			if(!value.col) value.col="12"	
+			if(!value.labelPosition) value.labelPosition="top"
+			//if(!value.cls) value.cls=value.field	
 
 			if(search (inputs_types, value.type)){
 
 				if(value.type=='hidden'){
-					$(target).find('form').append(`<input type="hidden" name="${value.field}" value="${value.value}" >`);
+					$(target).find('.formRows').append(`<input type="hidden" class="${value.field}" name="${value.field}" value="${value.value}" >`);
 				}else{
-					$(target).find('form').append(`<div class="inputsEasyui"><input name="${value.field}" ></div>`);
-					eval(`$(target).find('form').find( 'input[name="${value.field}"]' ).${value.type}(value);`);
+
+					$(target).find('.formRows').append(`<div class="col-${value.col}"><input class="${value.field}" name="${value.field}" ></div>`);
+					eval(`$(target).find('.formRows').find('input[name="${value.field}"]' ).${value.type}(value);`);
+
 				}
-
 			}
-
-
 		});		
-
 	}	
 
+	function getData(target){
+		return $(target).find('.formRows :input').serializeArray();
+	}	
+
+	function setData(target,data){
+		$(target).find(`.formRows`).form('load',data);
+	}		
+
 	function buildEditor(target){
-		
 		var opts = $.data(target, 'inputs').options;
-		$(target).append('<form border="0" >Formulario</form>');
-
+		$(target).append(`<div class="row formRows"></div>`);
 		addInputs(target)
-
 	}
 
 	$.fn.inputs = function(options, param){
@@ -69,6 +76,12 @@
 		options: function(jq){
 			return jq.data('inputs').options;
 		},
+		getData: function(jq){
+			return getData(jq);
+		},		
+		setData: function(jq,data){
+			return setData(jq,data);
+		},			
 		destroy: function(jq){
 			return jq.each(function(){
 				var opts = $(this).inputs('options');
@@ -85,21 +98,6 @@
 	};
 
 	$.fn.inputs.defaults = $.extend({}, $.fn.textbox.defaults, {
-//		fit:true,
-//		pagination:true,
-//		singleSelect:true,
-//		remoteFilter:true,
-//		defaultFilterType:'textbox'
-		//title: 'null',
-		//cls: 'inputs',
-		//bodyCls: 'inputs-body',
-		//draggable: false,
-		//shadow: false,
-		//closable: false,
-		//inline: true,
-		//border: 'thin',
-		//modal:true,
-
 	});
 
 	$.parser.plugins.push('inputs');

@@ -1,0 +1,20 @@
+.inputsEasyui {
+	padding: 4px;
+	padding-top: 2px;
+}
+
+.formRows {
+	padding: 5px;
+	padding-right: 0px;
+	margin-right: 0px;
+}
+.formRows .textbox{
+	-webkit-box-shadow: inset 1px 1px 2px 0px rgba(0,0,0,0.75);
+	-moz-box-shadow: inset 1px 1px 2px 0px rgba(0,0,0,0.75);
+	box-shadow: inset 1px 1px 2px 0px rgba(0,0,0,0.75);
+	background-color: #FFF9DF;
+	padding-left: 1px;
+}
+.formRows input{
+	background-color: transparent;
+}
