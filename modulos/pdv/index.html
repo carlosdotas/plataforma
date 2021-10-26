@@ -91,10 +91,12 @@ $( document ).ready(function() {
 								$('').dialogForm({
 						        href:"modulos/produtos/form.html",
 						        server:'server/index.php?mysql=produtos&cod='+data.val,
-						        formData:dados,
+							      formData:dados,	
+						        onClose:function(dados){	
+											teclado();
+											$('#buscar_produtos').focus()
+						        },
 							      onSend:function(dados){
-							      	$('#buscar_produtos').focus()
-
 											$('#vendas').pdv('appendRow',{
 												cod: dados.cod,
 												nome: dados.nome,
@@ -129,8 +131,14 @@ $( document ).ready(function() {
 		        	cod: getCodTimer(),
 		        	nome: nome_produto,
 		        },
+		        onClose:function(dados){	
+							teclado();
+							$('#buscar_produtos').focus()
+
+		        },
 			      onSend:function(dados){		
-			      		$('#buscar_produtos').focus()
+	
+
 								$('#vendas').pdv('appendRow',{
 									cod: dados.cod,
 									nome: dados.nome,
@@ -155,66 +163,70 @@ $( document ).ready(function() {
 		}
 	});	
 
-	$('body').teclas({
-		keyDown:function(){
+	teclado()
+	function teclado(){
+		$('body').teclas({
+			F2:function(){
+				getRowSelec = $('#vendas').pdv('getRowSelec');
+				getRowSelec.preco_venda = getRowSelec.preco
+				$('').dialogForm({
+		        href:"modulos/produtos/form.html",
+		        formData:getRowSelec,	
+		        onClose:function(dados){	
+							teclado();
+							$('#buscar_produtos').focus()
 
-		},
-		F2:function(){
-			getRowSelec = $('#vendas').pdv('getRowSelec');
-			getRowSelec.preco_venda = getRowSelec.preco
-			$('').dialogForm({
-	        href:"modulos/produtos/form.html",
-	        formData:getRowSelec,
-		      onSend:function(dados){
-		      	$('#buscar_produtos').focus()
-						$('#vendas').pdv('updateRow',{
-							cod: dados.cod,
-							nome: dados.nome,
-							preco: dados.preco_venda
-						});						
-	        }         
-	    });	
-	    setTimeout(function(){ 
-	    	$('.preco_venda').textbox('textbox').select();
-	    }, 100);
-		},	
-		F3:function(){
-		
-		},					
-		F4:function(){
-			$('#vendas').pdv('addTab');			
-		},
-		Esc:function(){
-			alert()		
-		},
-		Delete:function(){ //Seleciona para Cima
-			$('#vendas').pdv('deleteRow');			
-		},			
-		ArrowUp:function(){ //Seleciona para Cima
-			$('#vendas').pdv('arrowUp');			
-		},
-		ArrowDown:function(){ //Seleciona para Baixo
-			$('#vendas').pdv('arrowDown');
-		},
-		ArrowLeft:function(){ //Seleciona Lista Pra Esquerda
-			$('#vendas').pdv('arrowLeft');
-		},	
-		ArrowRight:function(){ //Seleciona Lista Pra Direita
-			$('#vendas').pdv('arrowRight');
-		},
-		'+':function(){
-			$('#vendas').pdv('somaMais');
-		},
-		'/':function(){ //Remove Item
-			$('#vendas').pdv('somaMenos');
-		},	
-		'*':function(){ //Remove Item
-			$('#vendas').pdv('multimipar');
-		},		
-		'Escape':function(){ //Remove Item
-			$('#vendas').pdv('closeTab');
-		},							
-	})
+		        },
+			      onSend:function(dados){
+							$('#vendas').pdv('updateRow',{
+								cod: dados.cod,
+								nome: dados.nome,
+								preco: dados.preco_venda
+							});						
+		        }         
+		    });	
+		    setTimeout(function(){ 
+		    	$('.preco_venda').textbox('textbox').select();
+		    }, 200);
+			},	
+			F3:function(){
+			
+			},					
+			F4:function(){
+				$('#vendas').pdv('addTab');			
+			},
+			Esc:function(){
+				alert()		
+			},
+			Delete:function(){ //Seleciona para Cima
+				$('#vendas').pdv('deleteRow');			
+			},			
+			ArrowUp:function(){ //Seleciona para Cima
+				$('#vendas').pdv('arrowUp');			
+			},
+			ArrowDown:function(){ //Seleciona para Baixo
+				$('#vendas').pdv('arrowDown');
+			},
+			ArrowLeft:function(){ //Seleciona Lista Pra Esquerda
+				$('#vendas').pdv('arrowLeft');
+			},	
+			ArrowRight:function(){ //Seleciona Lista Pra Direita
+				$('#vendas').pdv('arrowRight');
+			},
+			'+':function(){
+				$('#vendas').pdv('somaMais');
+			},
+			'/':function(){ //Remove Item
+				$('#vendas').pdv('somaMenos');
+			},	
+			'*':function(){ //Remove Item
+				$('#vendas').pdv('multimipar');
+			},		
+			'Escape':function(){ //Remove Item
+				$('#vendas').pdv('closeTab');
+			},							
+		})
+	}
 
 
 });	

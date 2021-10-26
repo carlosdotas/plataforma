@@ -113,10 +113,12 @@
 						$.each($(form).serializeArray(), function( index, value ) {						
 			            	serialize[value.name] = value.value;
 		                });
-
+						$( "body" ).unbind( "keyup");
+						$( "body" ).unbind( "keydown");	
 						onSend(serialize);
 						$(target).dialog('close')
-						$(target).dialog('destroy')			
+						$(target).dialog('destroy')	
+							
 						return;
 					}
 
@@ -165,6 +167,21 @@
 		var ids='dialog_'+getRandomInt(10000, 99999);
 
 		$(opts.dlgToolbar).panel('clear').remove();
+
+
+	    $('body').teclas({
+	        Enter:function(){
+	   			onPost(target);
+ 			
+	        },  
+	        Escape:function(){
+				$( "body" ).unbind( "keyup");
+				$( "body" ).unbind( "keydown");	 
+				$(target).dialog('close');
+				$(target).dialog('destroy');
+	        },
+	    })
+
 
 		$.get( opts.href, function( data ) {
 
@@ -225,6 +242,7 @@
 					if(opts.onClose){
 						opts.onClose()
 					}
+					  	
 					//$("#"+opts.id).dialog('destroy');  
 				}
 			}
