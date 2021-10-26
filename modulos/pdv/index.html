@@ -58,14 +58,16 @@ $( document ).ready(function() {
 
 					$.getJSON( "server/index.php?mysql=produtos&cod="+data.val, function( produtos ) {
 					  
-					  if(produtos.nome){
+					  console.log(produtos);
 
-								var dados = {
-									cod:produtos.cod,
-									nome:produtos.nome,
-									preco:produtos.preco_venda,
-									qnt: 1
-								}
+					  if(produtos.cod){
+
+							var dados = {
+								cod:produtos.cod,
+								nome:produtos.produto,
+								preco:produtos.preco,
+								qnt: 1
+							}
 
 							$('#vendas').pdv('appendRow',dados);	
 							$('#buscar_produtos').focus()
@@ -97,12 +99,12 @@ $( document ).ready(function() {
 											$('#buscar_produtos').focus()
 						        },
 							      onSend:function(dados){
-											$('#vendas').pdv('appendRow',{
-												cod: dados.cod,
-												nome: dados.nome,
-												preco: dados.preco_venda,
-												qnt: 1
-											});
+									$('#vendas').pdv('appendRow',{
+										cod: dados.cod,
+										nome: dados.nome,
+										preco: dados.preco_venda,
+										qnt: 1
+									});
 						        }         
 						    });	
 
@@ -177,12 +179,12 @@ $( document ).ready(function() {
 							$('#buscar_produtos').focus()
 
 		        },
-			      onSend:function(dados){
-							$('#vendas').pdv('updateRow',{
-								cod: dados.cod,
-								nome: dados.nome,
-								preco: dados.preco_venda
-							});						
+			     onSend:function(dados){
+						$('#vendas').pdv('updateRow',{
+							cod: dados.cod,
+							nome: dados.nome,
+							preco: dados.preco_venda
+						});						
 		        }         
 		    });	
 		    setTimeout(function(){ 

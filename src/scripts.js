@@ -66,6 +66,17 @@ function desktop(modulos,server){
 					})
 				}
 			},{
+				text: 'Modulos',
+				iconCls: 'cog_32',
+				handler: function(){
+					$('').dialogForm({
+			        	href:"modulos/modulos/index.html",
+			        	onSend:function(dados){
+			    	    console.log(dados)
+			    	    }         
+			    	});	
+				}
+			},{
 				text: 'Logout',
 				iconCls: 'icon-lock',
 				handler: function(){
